@@ -11,9 +11,8 @@ def simulation(R, N, T, r=1):
     p = [0.25, 0.5, 0.25]
     portion_alive = []
     for t in range(T):
-        for lion in range(N):
-            update = np.random.choice(steps, p=p, size=R)
-            distance_matrix[lion] = distance_matrix[lion] + update
+        update = np.random.choice(steps, p=p, size=(N,R))
+        distance_matrix = distance_matrix + update
         deaths = np.absolute(distance_matrix).min(axis=0)
         live_sheep = np.logical_and(live_sheep, deaths)
         portion_alive.append(live_sheep.sum()/R)
